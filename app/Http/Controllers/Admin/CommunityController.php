@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CommunityRequest;
 use App\Models\CommunityMember;
 use App\Models\CommunityFamilyMember;
@@ -69,5 +70,22 @@ class CommunityController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
+    }
+
+      public function index()
+    {
+        // Saare community members latest first fetch kar rahe hain
+        $members = CommunityMember::latest()->get();
+
+        return view('admin.community-member.index', compact('members'));
+    }
+
+     // Route Model Binding: Laravel khud CommunityMember::findOrFail($id) kar deta hai
+    public function show(CommunityMember $communityMember)
+    {
+        // Family members bhi saath mein load kar rahe hain (eager loading)
+        $communityMember->load('familyMembers');
+
+        return view('admin.community-member.show', compact('communityMember'));
     }
 }

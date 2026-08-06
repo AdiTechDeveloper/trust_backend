@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\MembershipController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\MembershipController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\Admin\CommunityController;
 use App\Models\Membership;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
@@ -19,6 +19,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/profile',[ProfileController::class,'profile']);
 
     Route::post('/profile/update',[ProfileController::class,'update']);
+     Route::get('/users', [RegisterController::class, 'index']);
+
     
     Route::put('/admin/membership/{id}/approve',[MembershipController::class,'approve']);
     

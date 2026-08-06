@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MembershipApprovalRequest;
 use App\Http\Requests\MembershipRequest;
+use App\Http\Controllers\Controller; 
 use App\Models\Membership;
 
 class MembershipController extends Controller

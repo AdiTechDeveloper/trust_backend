@@ -13,6 +13,12 @@ class CommunityFamilyMember extends Model
         'dob',
         'anniversary_date',
     ];
+     // 👇 Ye add karo
+    protected $casts = [
+        'dob' => 'date',
+        'anniversary_date' => 'date',
+        
+    ];
 
     public function communityMember()
     {

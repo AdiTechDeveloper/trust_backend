@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 
-
 class RegisterController extends Controller
 {
-     public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request)
     {
         $data = $request->validated();
 
@@ -18,7 +17,17 @@ class RegisterController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Registration Successful',
-            'data' => $user
+            'data' => $user,
         ], 201);
+    }
+
+    public function users()
+    {
+        $users = User::latest()->get();
+
+        return response()->json([
+            'status' => true,
+            'users' => $users,
+        ]);
     }
 }

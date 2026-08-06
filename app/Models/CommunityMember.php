@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CommunityMember extends Model
 {
@@ -21,11 +22,15 @@ class CommunityMember extends Model
         'status',
     ];
 
-    public function familyMembers()
+    // 👇 Ye add karo
+    protected $casts = [
+        'dob' => 'date',
+        'anniversary_date' => 'date',
+        'status' => 'boolean',
+    ];
+
+    public function familyMembers(): HasMany
     {
-        return $this->hasMany(
-            CommunityFamilyMember::class,
-            'community_member_id'
-        );
+        return $this->hasMany(CommunityFamilyMember::class);
     }
 }
