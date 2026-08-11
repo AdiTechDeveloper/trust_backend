@@ -2,45 +2,48 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ProfileRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller; 
 
 class ProfileController extends Controller
 {
-    //
-    public function update(ProfileRequest $request){
-
-        $data = $request->validated();
-
-    
-        $user = auth()->user();
-
-
-        $user->update([
-            'marital_status'=>$data['marital_status'],
-            'dob' =>$data['dob'],
-            'anniversary_date' =>$data['anniversary_date'],
-            'address' => $data['address'],
-            'city' => $data['city'],
-            'state' =>$data['state'],
-            'pincode' =>$data['pincode'],
-         ]);
-
-         return response()->json([
+    /**
+     * Show admin profile
+     */
+    public function show(Request $request)
+    {
+        return response()->json([
             'status' => true,
-            'message' =>'Profile Updated Successfully.',
-            'data' => $user
-         ],200);
-
+            'user' => $request->user(),
+        ]);
     }
 
     public function profile(Request $request)
     {
+        return view('admin.profile', [
+            'admin' => $request->user(),
+        ]);
+    }
+
+    /**
+     * Update admin profile
+     */
+    public function update(Request $request)
+    {
+        $user = $request->user();
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'nullable|email|max:255|unique:users,email,' . $user->id,
+            'mobile' => 'nullable|string|max:10|unique:users,mobile,' . $user->id,
+        ]);
+
+        $user->update($validated);
+
         return response()->json([
             'status' => true,
-            'message' =>'Profile Fetched successfuly',
-            'data'=>$request->user(),
-        ],200);
+            'message' => 'Admin profile updated successfully.',
+            'user' => $user->fresh(),
+        ]);
     }
 }

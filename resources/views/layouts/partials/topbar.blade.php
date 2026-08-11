@@ -38,18 +38,25 @@
         <div class="dropdown">
             <button class="profile-btn" data-bs-toggle="dropdown">
                 <img src="https://ui-avatars.com/api/?name={{ auth()->check() ? auth()->user()->name : 'Admin' }}&background=D4A017&color=fff"
-                     class="profile-img" alt="Profile">
+                    class="profile-img" alt="Profile">
                 <span class="d-none d-md-inline">{{ auth()->check() ? auth()->user()->name : 'Admin' }}</span>
                 <i class="bi bi-chevron-down"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
                 <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
-                <li><hr class="dropdown-divider"></li>
                 <li>
-                    <a class="dropdown-item text-danger" href="#">
-                        <i class="bi bi-box-arrow-right me-2"></i>Logout
-                    </a>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <form action="{{ route('admin.logout') }}" method="POST">
+                        @csrf
+
+                        <button type="submit" class="dropdown-item text-danger">
+                            <i class="bi bi-box-arrow-right me-2"></i>
+                            Logout
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>

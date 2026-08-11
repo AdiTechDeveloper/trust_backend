@@ -18,6 +18,9 @@
     {{-- Hamara custom CSS (theme colors, sidebar design) --}}
     <link rel="stylesheet" href="{{ asset('assets/admin/css/custom.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/admin.css') }}">
+
+
     {{-- SweetAlert2 (delete confirmation, success messages ke liye) --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 

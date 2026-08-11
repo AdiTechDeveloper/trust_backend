@@ -1,25 +1,84 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CommunityController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AuthController;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Admin Panel Routes
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+// ==========================================
+// ADMIN PANEL
+// ==========================================
+
+Route::prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        // ======================================
+        // LOGIN
+        // ======================================
+
+        Route::middleware('guest')->group(function () {
+
+            Route::get('/login', [
+                AuthController::class,
+                'showLoginForm'
+            ])->name('login');
+
+            Route::post('/login', [
+                AuthController::class,
+                'login'
+            ])->name('login.submit');
+
+        });
 
 
-    // Community Members - abhi sirf listing (index) route
-     Route::get('/community-members', [CommunityController::class, 'index'])
-        ->name('community-members.index');
+        // ======================================
+        // PROTECTED ADMIN ROUTES
+        // ======================================
 
-    Route::get('/community-members/{communityMember}',[CommunityController::class,'show'])
-    ->name('community-members.show');
-});
+        Route::middleware('admin')->group(function () {
 
+            // Dashboard
+            Route::get('/dashboard', [
+                DashboardController::class,
+                'index'
+            ])->name('dashboard');
+
+
+            // Users
+            Route::get('/users', [
+                UserController::class,
+                'index'
+            ])->name('users.index');
+
+
+            // Community Members
+            Route::get('/community-members', [
+                CommunityController::class,
+                'index'
+            ])->name('community-members.index');
+
+
+            Route::get('/community-members/{communityMember}', [
+                CommunityController::class,
+                'show'
+            ])->name('community-members.show');
+
+
+            // Logout
+            Route::post('/logout', [
+                AuthController::class,
+                'logout'
+            ])->name('logout');
+
+        });
+
+    });
