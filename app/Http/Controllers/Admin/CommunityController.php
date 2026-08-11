@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommunityRequest;
-use App\Models\CommunityMember;
 use App\Models\CommunityFamilyMember;
+use App\Models\CommunityMember;
 use Illuminate\Support\Facades\DB;
 
 class CommunityController extends Controller
@@ -17,7 +17,6 @@ class CommunityController extends Controller
         DB::beginTransaction();
 
         try {
-
             $member = CommunityMember::create([
                 'name' => $data['name'],
                 'mobile' => $data['mobile'],
@@ -33,20 +32,15 @@ class CommunityController extends Controller
                 'status' => true,
             ]);
 
-            if (!empty($data['family_members'])) {
+            if (! empty($data['family_members'])) {
 
                 foreach ($data['family_members'] as $family) {
 
                     CommunityFamilyMember::create([
-
                         'community_member_id' => $member->id,
-
                         'name' => $family['name'],
-
                         'relation' => $family['relation'],
-
                         'dob' => $family['dob'],
-
                         'anniversary_date' => $family['anniversary_date'] ?? null,
                     ]);
                 }
@@ -61,7 +55,6 @@ class CommunityController extends Controller
             ], 201);
 
         } catch (\Exception $e) {
-
             DB::rollBack();
 
             return response()->json([
@@ -72,18 +65,15 @@ class CommunityController extends Controller
         }
     }
 
-      public function index()
+    public function index()
     {
-        // Saare community members latest first fetch kar rahe hain
         $members = CommunityMember::latest()->get();
 
         return view('admin.community-member.index', compact('members'));
     }
 
-     // Route Model Binding: Laravel khud CommunityMember::findOrFail($id) kar deta hai
     public function show(CommunityMember $communityMember)
     {
-        // Family members bhi saath mein load kar rahe hain (eager loading)
         $communityMember->load('familyMembers');
 
         return view('admin.community-member.show', compact('communityMember'));

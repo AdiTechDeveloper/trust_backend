@@ -7,24 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 class CommunityFamilyMember extends Model
 {
     protected $fillable = [
-        'community_member_id',
+        'user_id',
         'name',
         'relation',
         'dob',
         'anniversary_date',
     ];
-     // 👇 Ye add karo
+
     protected $casts = [
         'dob' => 'date',
         'anniversary_date' => 'date',
-        
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public function communityMember()
     {
-        return $this->belongsTo(
-            CommunityMember::class,
-            'community_member_id'
-        );
+        return $this->belongsTo(CommunityMember::class, 'community_member_id');
     }
 }

@@ -21,8 +21,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'mobile',
         'email',
+        'mobile',
         'gender',
         'marital_status',
         'dob',
@@ -31,9 +31,14 @@ class User extends Authenticatable
         'city',
         'state',
         'pincode',
+        'status',
+        'role',
         'profile_photo',
         'password',
-        'status',
+        'designation',
+        'company_name',
+        'source_type',
+        'is_donor',
     ];
 
     /**
@@ -55,7 +60,15 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'dob' => 'date',
+            'anniversary_date' => 'date',
+            'status' => 'boolean',
+            'is_donor' => 'boolean',
         ];
+    }
+
+    public function familyMembers()
+    {
+        return $this->hasMany(CommunityFamilyMember::class, 'user_id');
     }
 }
