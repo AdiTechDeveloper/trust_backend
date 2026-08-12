@@ -98,12 +98,12 @@
             {{-- Page Content --}}
             <div class="page-content">
 
-                @if(session('success'))
+                {{-- @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
-                @endif
+                @endif --}}
 
                 @yield('content')
 
@@ -128,6 +128,42 @@
     <script src="{{ asset('assets/admin/js/custom.js') }}"></script>
 
     @stack('scripts')
+
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const toasts = document.querySelectorAll('.custom-toast');
+
+    toasts.forEach(function (toast) {
+
+        // Close button
+        const closeButton = toast.querySelector('.toast-close');
+
+        closeButton.addEventListener('click', function () {
+            removeToast(toast);
+        });
+
+
+        // Auto close after 4 seconds
+        setTimeout(function () {
+            removeToast(toast);
+        }, 3000);
+
+    });
+
+
+    function removeToast(toast) {
+
+        toast.style.animation = 'toastSlideOut 0.35s ease forwards';
+
+        setTimeout(function () {
+            toast.remove();
+        }, 350);
+
+    }
+
+});
+</script>
 
 </body>
 </html>

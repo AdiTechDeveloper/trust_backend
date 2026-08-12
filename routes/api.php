@@ -64,3 +64,4 @@ Route::middleware('auth:sanctum')->group(function () {
     );
     Route::get('/admin/memberships', [MembershipController::class, 'index']);
 });
+Route::get('/poojas', [PoojaController::class, 'publicIndex']);

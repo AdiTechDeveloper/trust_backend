@@ -16,15 +16,11 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a href="{{ route('admin.community-members.index') }}" class="nav-link">
-                    <i class="bi bi-people"></i> <span>Community Members</span>
-                </a>
-            </li>
+          
 
             <li class="nav-item">
                 <a href="{{ route('admin.users.index') }}" class="nav-link">
-                    <i class="bi bi-people"></i> <span>Users</span>
+                    <i class="bi bi-people"></i> <span>Members</span>
                 </a>
             </li>
 

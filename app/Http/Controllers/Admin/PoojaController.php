@@ -29,15 +29,12 @@ class PoojaController extends Controller
         return view('admin.pooja.form');
     }
 
-      
-          public function edit($id)
+    public function edit($id)
     {
         $pooja = Pooja::findOrFail($id);
 
         return view('admin.pooja.form', compact('pooja'));
     }
-
-
 
     /**
      * Store new pooja
@@ -121,10 +118,9 @@ class PoojaController extends Controller
 
         Pooja::create($data);
 
-       return redirect()
-    ->route('admin.pooja.index')
-    ->with('success', 'Pooja created successfully.');
-    
+        return redirect()
+            ->route('admin.pooja.index')
+            ->with('success', 'Pooja created successfully.');
 
         // return response()->json([
         //     'status' => true,
@@ -136,16 +132,17 @@ class PoojaController extends Controller
     /**
      * Show single pooja
      */
-   public function show($id)
-{
-    $pooja = Pooja::findOrFail($id);
+    public function show($id)
+    {
+        $pooja = Pooja::findOrFail($id);
 
-    return view('admin.pooja.show', compact('pooja'));
-}
+        return view('admin.pooja.show', compact('pooja'));
+    }
+
     /**
      * Update pooja
      */
-      public function update(StorePoojaRequest $request, $id)
+    public function update(StorePoojaRequest $request, $id)
     {
         $pooja = Pooja::findOrFail($id);
 
@@ -166,8 +163,8 @@ class PoojaController extends Controller
             $photo = $request->file('photo');
 
             $photoName = time()
-                . '_'
-                . $photo->getClientOriginalName();
+                .'_'
+                .$photo->getClientOriginalName();
 
             $photoPath = $photo->storeAs(
                 'poojas',
@@ -193,10 +190,10 @@ class PoojaController extends Controller
             foreach ($request->file('gallery') as $image) {
 
                 $imageName = time()
-                    . '_'
-                    . uniqid()
-                    . '_'
-                    . $image->getClientOriginalName();
+                    .'_'
+                    .uniqid()
+                    .'_'
+                    .$image->getClientOriginalName();
 
                 $imagePath = $image->storeAs(
                     'poojas/gallery',
@@ -210,7 +207,11 @@ class PoojaController extends Controller
             $data['gallery'] = $galleryImages;
         }
 
-        // Checkbox values
+        // Checkbox values  
+
+
+
+        
         $data['is_featured'] = $data['is_featured'] ?? false;
         $data['status'] = $data['status'] ?? false;
         $data['sort_order'] = $data['sort_order'] ?? 0;
@@ -223,11 +224,10 @@ class PoojaController extends Controller
             ->with('success', 'Pooja updated successfully.');
     }
 
-
     /**
      * Delete pooja
      */
-      public function destroy($id)
+    public function destroy($id)
     {
         $pooja = Pooja::findOrFail($id);
 
@@ -251,5 +251,17 @@ class PoojaController extends Controller
             ->route('admin.pooja.index')
             ->with('success', 'Pooja deleted successfully.');
     }
-}
 
+    public function publicIndex()
+    {
+        $poojas = Pooja::where('status', true)
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json([
+            'status' => true,
+            'poojas' => $poojas,
+        ], 200);
+    }
+}
