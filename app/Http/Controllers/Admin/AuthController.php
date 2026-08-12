@@ -22,10 +22,10 @@ class AuthController extends Controller
 
         $remember = $request->boolean('remember');
 
-        if (!Auth::attempt($credentials, $remember)) {
+        if (! Auth::attempt($credentials, $remember)) {
             return back()
                 ->withErrors([
-                    'email' => 'Invalid email or password.'
+                    'email' => 'Invalid email or password.',
                 ])
                 ->onlyInput('email');
         }
@@ -36,10 +36,12 @@ class AuthController extends Controller
         if ($user->role !== 'admin') {
 
             Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
             return back()
                 ->withErrors([
-                    'email' => 'This account does not have admin access.'
+                    'email' => 'This account does not have admin access.',
                 ])
                 ->onlyInput('email');
         }
