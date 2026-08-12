@@ -30,7 +30,7 @@ class RegisterRequest extends FormRequest
 
             // Optional user details
             'email' => 'nullable|email|max:255|unique:users,email',
-            'gender' => 'nullable|in:Male,Female',
+            'gender' => 'nullable|in:Male,Female,Other,PNS',
             'marital_status' => 'nullable|in:Single,Married,Divorced',
             'dob' => 'nullable|date',
             'anniversary_date' => 'required_if:marital_status,Married|nullable|date',
