@@ -28,6 +28,64 @@
 </head>
 <body>
 
+   @if(session('success') || session('error') || $errors->any())
+
+    <div class="custom-toast-container">
+
+        @if(session('success'))
+            <div class="custom-toast custom-toast-success">
+                <div class="toast-icon">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+
+                <div class="toast-message">
+                    {{ session('success') }}
+                </div>
+
+                <button type="button" class="toast-close">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        @endif
+
+
+        @if(session('error'))
+            <div class="custom-toast custom-toast-error">
+                <div class="toast-icon">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                </div>
+
+                <div class="toast-message">
+                    {{ session('error') }}
+                </div>
+
+                <button type="button" class="toast-close">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        @endif
+
+
+        @if($errors->any())
+            <div class="custom-toast custom-toast-error">
+                <div class="toast-icon">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                </div>
+
+                <div class="toast-message">
+                    {{ $errors->first() }}
+                </div>
+
+                <button type="button" class="toast-close">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        @endif
+
+    </div>
+
+@endif
+
     <div class="admin-wrapper">
 
         {{-- Sidebar Partial Include --}}
@@ -42,12 +100,12 @@
             <div class="page-content">
 
                 {{-- Session success/error messages ke liye common jagah --}}
-                @if(session('success'))
+                {{-- @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
                         {{ session('success') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
-                @endif
+                @endif --}}
 
                 @yield('content')
                 {{-- Har child page ka actual content yahan aayega --}}
@@ -73,6 +131,43 @@
     <script src="{{ asset('assets/admin/js/custom.js') }}"></script>
 
     @stack('scripts') {{-- Kisi page ko extra JS chahiye toh yahan push hoga --}}
+
+   <script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const toasts = document.querySelectorAll('.custom-toast');
+
+    toasts.forEach(function (toast) {
+
+        // Close button
+        const closeButton = toast.querySelector('.toast-close');
+
+        closeButton.addEventListener('click', function () {
+            removeToast(toast);
+        });
+
+
+        // Auto close after 4 seconds
+        setTimeout(function () {
+            removeToast(toast);
+        }, 4000);
+
+    });
+
+
+    function removeToast(toast) {
+
+        toast.style.animation = 'toastSlideOut 0.35s ease forwards';
+
+        setTimeout(function () {
+            toast.remove();
+        }, 350);
+
+    }
+
+});
+</script>
+
 
 </body>
 </html>
