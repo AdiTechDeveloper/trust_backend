@@ -22,7 +22,6 @@ class CommunityMember extends Model
         'status',
     ];
 
-    // 👇 Ye add karo
     protected $casts = [
         'dob' => 'date',
         'anniversary_date' => 'date',
