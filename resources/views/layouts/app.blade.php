@@ -27,6 +27,64 @@
 </head>
 <body>
 
+   @if(session('success') || session('error') || $errors->any())
+
+    <div class="custom-toast-container">
+
+        @if(session('success'))
+            <div class="custom-toast custom-toast-success">
+                <div class="toast-icon">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+
+                <div class="toast-message">
+                    {{ session('success') }}
+                </div>
+
+                <button type="button" class="toast-close">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        @endif
+
+
+        @if(session('error'))
+            <div class="custom-toast custom-toast-error">
+                <div class="toast-icon">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                </div>
+
+                <div class="toast-message">
+                    {{ session('error') }}
+                </div>
+
+                <button type="button" class="toast-close">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        @endif
+
+
+        @if($errors->any())
+            <div class="custom-toast custom-toast-error">
+                <div class="toast-icon">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                </div>
+
+                <div class="toast-message">
+                    {{ $errors->first() }}
+                </div>
+
+                <button type="button" class="toast-close">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        @endif
+
+    </div>
+
+@endif
+
     <div class="admin-wrapper">
 
         {{-- Sidebar Partial Include --}}

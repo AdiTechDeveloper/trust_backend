@@ -3,6 +3,9 @@
 use App\Http\Controllers\Admin\CommunityController;
 use App\Http\Controllers\Admin\MembershipController;
 use App\Http\Controllers\Api\ProfileController;
+
+use App\Http\Controllers\Admin\PoojaController;
+
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +41,19 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Users
     Route::get('/users', [RegisterController::class, 'index']);
+
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/admin/poojas',[PoojaController::class, 'index']);
+
+        Route::post('/admin/poojas',[PoojaController::class,'store']);
+
+        Route::post('/admin/poojas/{id}',[PoojaController::class,'show']);
+
+        Route::post('/admin/poojas/{id}',[PoojaController::class,'update']);
+
+        Route::delete('/admin/poojas/{id}',[PoojaController::class,'destroy']);
+    });
 
     // Admin membership approval
     Route::put(

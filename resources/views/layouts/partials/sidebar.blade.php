@@ -28,6 +28,12 @@
                 </a>
             </li>
 
+             <li class="nav-item">
+                <a href="{{ route('admin.pooja.index') }}" class="nav-link">
+                    <i class="bi bi-people"></i> <span>Pooja</span>
+                </a>
+            </li>
+
             {{-- <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="bi bi-person-badge"></i> <span>Temple Members</span>

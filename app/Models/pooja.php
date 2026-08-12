@@ -13,6 +13,7 @@ class pooja extends Model
         'short_description',
         'description',
         'price',
+        'offer_price',
         'duration',
         'timings',
         'location',
@@ -33,5 +34,6 @@ class pooja extends Model
         'is_featured' => 'boolean',
         'status'  => 'boolean',
         'price' => 'decimal:2',
+        'offer_price' => 'decimal:2'
     ];
 }
