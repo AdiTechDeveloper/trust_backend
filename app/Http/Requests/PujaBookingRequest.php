@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use Carbon\Carbon;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Override;
 
 class PujaBookingRequest extends FormRequest
 {
@@ -27,7 +26,7 @@ class PujaBookingRequest extends FormRequest
         // Require booking date to be at least 5 days from today
         $minDate = Carbon::now()->addDays(5)->format('Y-m-d');
 
-        return [
+        $rules = [
             'puja_id' => 'required|exists:poojas,id',
             'name' => 'required|string|max:255',
             'mobile' => 'required|digits:10',
@@ -39,6 +38,15 @@ class PujaBookingRequest extends FormRequest
             ],
             'time_slot' => 'required|string',
         ];
+
+        // If this request is hitting the payment verification endpoint, enforce Razorpay parameters
+        if ($this->routeIs('puja.verify-payment') || $this->has('razorpay_payment_id')) {
+            $rules['razorpay_payment_id'] = 'required|string';
+            $rules['razorpay_order_id'] = 'required|string';
+            $rules['razorpay_signature'] = 'required|string';
+        }
+
+        return $rules;
     }
 
     /**
@@ -55,6 +63,9 @@ class PujaBookingRequest extends FormRequest
             'booking_date.required' => 'Please select your preferred puja booking date.',
             'booking_date.after_or_equal' => 'Puja bookings require at least 5 days advance notice.',
             'time_slot.required' => 'Please select a time slot for the puja.',
+            'razorpay_payment_id.required' => 'Payment reference ID is missing.',
+            'razorpay_order_id.required' => 'Payment order ID is missing.',
+            'razorpay_signature.required' => 'Payment signature verification token is missing.',
         ];
     }
 }

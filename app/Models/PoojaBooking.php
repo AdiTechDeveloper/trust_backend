@@ -18,6 +18,8 @@ class PoojaBooking extends Model
         'amount',
         'payment_status',
         'transaction_id',
+        'razorpay_order_id',
+        'razorpay_payment_id',
     ];
 
     protected $casts = [
