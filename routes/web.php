@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\CommunityController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PoojaController;
+use App\Http\Controllers\Admin\VideoController;
+use App\Models\Video;
 use Illuminate\Support\Facades\Route;
 
 // ADMIN PANEL
@@ -24,6 +26,7 @@ Route::prefix('admin')
 
             // Users
             Route::get('/users', [UserController::class, 'index'])->name('users.index');
+            Route::get('/users/{user}',[UserController::class,'show'])->name('users.show');
 
             // Community Members
             Route::get('/community-members', [CommunityController::class, 'index'])->name('community-members.index');
@@ -37,6 +40,26 @@ Route::prefix('admin')
             Route::get('/poojas/{id}/edit', [PoojaController::class, 'edit'])->name('pooja.edit');
             Route::put('/poojas/{id}', [PoojaController::class, 'update'])->name('pooja.update');
             Route::delete('/poojas/{id}', [PoojaController::class, 'destroy'])->name('pooja.destroy');
+
+            //video (web admin CRUD)
+
+            Route::get('/videos',[VideoController::class,'index'])->name('video.index');
+            Route::get('/videos/create',[VideoController::class,'create'])->name('video.create');
+            Route::post('/videos', [VideoController::class, 'store'])
+                ->name('video.store');
+
+            Route::get('/videos/{id}', [VideoController::class, 'show'])
+                ->name('video.show');
+
+            Route::get('/videos/{id}/edit', [VideoController::class, 'edit'])
+                ->name('video.edit');
+
+            Route::put('/videos/{id}', [VideoController::class, 'update'])
+                ->name('video.update');
+
+            Route::delete('/videos/{id}', [VideoController::class, 'destroy'])
+                ->name('video.destroy');
+
 
             // Logout
             Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

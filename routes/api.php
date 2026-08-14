@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\API\PujaBookingController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Api\videoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,3 +66,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/memberships', [MembershipController::class, 'index']);
 });
 Route::get('/poojas', [PoojaController::class, 'publicIndex']);
+
+Route::get('/videos',[videoController::class,'index']);
+
+Route::get('/videos/{slug}',[videoController::class,'show']);

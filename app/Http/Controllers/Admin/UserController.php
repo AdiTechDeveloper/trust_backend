@@ -9,9 +9,17 @@ class UserController extends Controller
 {
     public function index()
     {
-       $users = User::where('role', 'user')->latest()->get();
+        $users = User::where('role', 'user')
+            ->latest()
+            ->get();
 
+        return view('admin.users.index', compact('users'));
+    }
 
-         return view('admin.users.index', compact('users'));
+    public function show(User $user)
+    {
+        $user->load('familyMembers');
+
+        return view('admin.users.show', compact('user'));
     }
 }
