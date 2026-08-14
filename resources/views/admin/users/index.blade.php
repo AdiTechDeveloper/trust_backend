@@ -27,6 +27,7 @@
                         <th>State</th>
                         <th>Status</th>
                         <th>Joined On</th>
+                        <th>Action </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,6 +53,13 @@
                                 @endif
                             </td>
                             <td>{{ $user->created_at->format('d M Y') }}</td>
+                              <td class="text-center">
+                                <a href="{{ route('admin.users.show', $user) }}"
+                                   class="btn btn-sm btn-icon-action" title="View">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                              
+                            </td>
                         </tr>
                     @empty
                         <tr>

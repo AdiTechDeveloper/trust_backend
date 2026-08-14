@@ -20,13 +20,19 @@
 
             <li class="nav-item">
                 <a href="{{ route('admin.users.index') }}" class="nav-link">
-                    <i class="bi bi-people"></i> <span>Members</span>
+                    <i class="bi bi-people"></i> <span>Member</span>
                 </a>
             </li>
 
              <li class="nav-item">
                 <a href="{{ route('admin.pooja.index') }}" class="nav-link">
                     <i class="bi bi-people"></i> <span>Pooja</span>
+                </a>
+            </li>
+
+              <li class="nav-item">
+                <a href="{{ route('admin.video.index') }}" class="nav-link">
+                    <i class="bi bi-people"></i> <span>Video</span>
                 </a>
             </li>
 
