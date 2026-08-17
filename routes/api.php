@@ -6,9 +6,9 @@ use App\Http\Controllers\Admin\PoojaController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\API\PujaBookingController;
+use App\Http\Controllers\Api\videoController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Api\videoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,8 +24,8 @@ Route::post('/community/join', [CommunityController::class, 'join']);
 
 // Pooja Booking and Slots Checking Endpoints
 Route::get('/puja/slots', [PujaBookingController::class, 'getAvailableSlots']);
-Route::post('/puja/book', [PujaBookingController::class, 'bookPuja']);
-
+Route::post('/puja/create-order', [PujaBookingController::class, 'createOrder']);
+Route::post('/puja/verify-payment', [PujaBookingController::class, 'verifyPaymentAndBook']);
 /*
 |--------------------------------------------------------------------------
 | Authenticated User Routes
@@ -68,7 +68,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::get('/poojas', [PoojaController::class, 'publicIndex']);
 
-Route::get('/videos',[videoController::class,'index']);
+Route::get('/videos', [videoController::class, 'index']);
 
 Route::get('/videos/{slug}',[videoController::class,'show']);
 
@@ -76,3 +76,4 @@ Route::get('/videos/{slug}',[videoController::class,'show']);
 Route::get('/gallery',[GalleryController::class,'index']);
 
 Route::get('gallery/{id}',[GalleryController::class,'show']);
+

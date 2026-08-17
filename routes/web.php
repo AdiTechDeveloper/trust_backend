@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\PoojaController;
 use App\Http\Controllers\Admin\PujaBookingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VideoController;
-use App\Models\Video;
 use Illuminate\Support\Facades\Route;
 
 // ADMIN PANEL
@@ -83,3 +82,4 @@ Route::prefix('admin')
         });
 
     });
+    
