@@ -36,6 +36,19 @@
                 </a>
             </li>
 
+             <li class="nav-item">
+                <a href="{{ route('admin.puja-booking.index') }}" class="nav-link">
+                    <i class="bi bi-people"></i> <span>Puja Bookings</span>
+                </a>
+            </li>
+
+                <li class="nav-item">
+                <a href="{{ route('admin.gallery.index') }}" class="nav-link">
+                    <i class="bi bi-people"></i> <span>Gallery</span>
+                </a>
+            </li>
+
+
             {{-- <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="bi bi-person-badge"></i> <span>Temple Members</span>

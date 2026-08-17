@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CommunityController;
 use App\Http\Controllers\Admin\MembershipController;
 use App\Http\Controllers\Admin\PoojaController;
+use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\API\PujaBookingController;
 use App\Http\Controllers\Auth\LoginController;
@@ -70,3 +71,8 @@ Route::get('/poojas', [PoojaController::class, 'publicIndex']);
 Route::get('/videos',[videoController::class,'index']);
 
 Route::get('/videos/{slug}',[videoController::class,'show']);
+
+
+Route::get('/gallery',[GalleryController::class,'index']);
+
+Route::get('gallery/{id}',[GalleryController::class,'show']);
