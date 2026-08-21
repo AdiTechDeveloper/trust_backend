@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CommunityController;
 use App\Http\Controllers\Admin\MembershipController;
 use App\Http\Controllers\Admin\PoojaController;
+use App\Http\Controllers\API\DonationController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\API\PujaBookingController;
 use App\Http\Controllers\Api\videoController;
@@ -25,6 +26,11 @@ Route::post('/community/join', [CommunityController::class, 'join']);
 Route::get('/puja/slots', [PujaBookingController::class, 'getAvailableSlots']);
 Route::post('/puja/create-order', [PujaBookingController::class, 'createOrder']);
 Route::post('/puja/verify-payment', [PujaBookingController::class, 'verifyPaymentAndBook']);
+
+// Donation Endpoints
+Route::post('/donations/create-order', [DonationController::class, 'createOrder']);
+Route::post('/donations/verify', [DonationController::class, 'verifyPaymentAndDonate']);
+
 /*
 |--------------------------------------------------------------------------
 | Authenticated User Routes
