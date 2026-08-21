@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid px-4">
     <div class="mb-4 mt-4">
-        <h1 class="fw-bold text-dark">Welcome, Admin 👋</h1>
+        <h1 class="fw-bold text-dark">Welcome</h1>
         <p class="text-muted">Here is a quick overview of your temple management system.</p>
     </div>
 
@@ -42,7 +42,7 @@
                     <div>
                         <h6 class="text-uppercase fw-semibold">Puja Bookings</h6>
                         <h2 class="mb-0 fw-bold">{{ $totalBookings ?? 0 }}</h2>
-                        <small class="text-dark">({{ $pendingBookings ?? 0 }} Pending)</small>
+                        {{-- <small class="text-dark">({{ $pendingBookings ?? 0 }} Pending)</small> --}}
                     </div>
                     <i class="bi bi-calendar-check fs-1 opacity-50"></i>
                 </div>
@@ -89,8 +89,8 @@
                             <th>#</th>
                             <th>Devotee Name</th>
                             <th>Puja Name</th>
-                            <th>Booking Date</th>
-                            <th>Status</th>
+                            <th>Puja Date</th>
+                            <th>Payment Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,11 +98,11 @@
                             <tr>
                                 <th scope="row">{{ $index + 1 }}</th>
                                 <td>{{ $booking->user->name ?? 'N/A' }}</td>
-                                <td>{{ $booking->pooja->name ?? 'N/A' }}</td>
-                                <td>{{ $booking->created_at->format('d M Y, h:i A') }}</td>
+                                <td>{{ $booking->puja->name ?? 'N/A' }}</td>
+                                <td>{{ $booking->booking_date->format('d M Y, h:i A') }}</td>
                                 <td>
-                                    <span class="badge bg-{{ $booking->status == 'confirmed' ? 'success' : 'warning' }}">
-                                        {{ ucfirst($booking->status) }}
+                                    <span class="badge bg-{{ $booking->payment_status == 'confirmed' ? 'success' : 'warning' }}">
+                                        {{ ucfirst($booking->payment_status) }}
                                     </span>
                                 </td>
                             </tr>
