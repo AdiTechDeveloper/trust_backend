@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Video;
-use Illuminate\Http\Request;
 
-class videoController extends Controller
+class VideoController extends Controller
 {
     //
     public function index(){
@@ -17,7 +16,7 @@ class videoController extends Controller
 
         return response()->json([
             'status' => true,
-            'video' => $videos,
+            'videos' => $videos,
         ],200);
     }
 
@@ -35,7 +34,7 @@ class videoController extends Controller
 
         return response()->json([
             'status' => true,
-            'video' => $video,
+            'videos' => $video,
         ],200); 
     }
 }

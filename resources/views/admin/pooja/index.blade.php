@@ -229,7 +229,7 @@
                                         Start by adding your first pooja.
                                     </p>
 
-                                    <a href="{{ route('admin.pooja.create') }}"admin.pooja.index class="btn btn-primary">
+                                    <a href="{{ route('admin.pooja.create') }}" class="btn btn-primary">
                                         <i class="bi bi-plus-lg"></i>
                                         Add Pooja
                                     </a>

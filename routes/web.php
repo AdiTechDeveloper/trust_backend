@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PoojaController;
 use App\Http\Controllers\Admin\PujaBookingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VideoController;
+use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // ADMIN PANEL
@@ -24,7 +25,15 @@ Route::prefix('admin')
         // PROTECTED ADMIN ROUTES
         Route::middleware('admin')->group(function () {
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+             Route:: get('/profile/edit', [ProfileController::class, 'profile'])->name('profile.edit');
+    
+            // Handle the update form submission
+            Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
+            //password route
+
+            Route::get('/password/edit',[ProfileController::class,'editPassword'])->name('password.edit');
+            Route::put('/password/update',[ProfileController::class,'updatePassword'])->name('password.update');
             // Users
             Route::get('/users', [UserController::class, 'index'])->name('users.index');
             Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
@@ -77,9 +86,16 @@ Route::prefix('admin')
             Route::put('/gallery/{id}', [GalleryController::class, 'update'])->name('gallery.update');
             Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
 
+  
+
+
             // Logout
             Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         });
+
+        
+// Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group和谐 {
+// };
 
     });
     

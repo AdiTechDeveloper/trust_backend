@@ -6,8 +6,8 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h3 class="fw-bold mb-0">Users</h3>
-            <p class="text-muted mb-0">All registered users with role: user</p>
+            <h3 class="fw-bold mb-0">Members List</h3>
+            {{-- <p class="text-muted mb-0">All registered users with role: user</p> --}}
         </div>
     </div>
 
@@ -83,11 +83,17 @@
     <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $('#usersTable').DataTable({
-                pageLength: 10,
-                responsive: true
-            });
-        });
+      $(document).ready(function () {
+    // Suppress DataTables alert popups globally
+    $.fn.dataTable.ext.errMode = 'none';
+
+    $('#usersTable').DataTable({
+        pageLength: 10,
+        responsive: true,
+        language: {
+            emptyTable: "No users found."
+        }
+    });
+});
     </script>
 @endpush

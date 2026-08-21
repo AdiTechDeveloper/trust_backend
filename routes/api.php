@@ -3,13 +3,14 @@
 use App\Http\Controllers\Admin\CommunityController;
 use App\Http\Controllers\Admin\MembershipController;
 use App\Http\Controllers\Admin\PoojaController;
-use App\Http\Controllers\Api\GalleryController;
-use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\API\GalleryController;
+use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\PujaBookingController;
-use App\Http\Controllers\Api\videoController;
+use App\Http\Controllers\API\VideoController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -47,18 +48,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // Users
     Route::get('/users', [RegisterController::class, 'index']);
 
-    // Route::middleware('auth:sanctum')->group(function () {
-    //     Route::get('/admin/poojas',[PoojaController::class, 'index']);
-
-    //     Route::post('/admin/poojas',[PoojaController::class,'store']);
-
-    //     Route::post('/admin/poojas/{id}',[PoojaController::class,'show']);
-
-    //     Route::post('/admin/poojas/{id}',[PoojaController::class,'update']);
-
-    //     Route::delete('/admin/poojas/{id}',[PoojaController::class,'destroy']);
-    // });
-
     // Admin membership approval
     Route::put(
         '/admin/membership/{id}/approve',
@@ -68,12 +57,11 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::get('/poojas', [PoojaController::class, 'publicIndex']);
 
-Route::get('/videos', [videoController::class, 'index']);
+Route::get('/videos', [VideoController::class, 'index']);
 
-Route::get('/videos/{slug}',[videoController::class,'show']);
+Route::get('/videos/{slug}', [VideoController::class, 'show']);
 
+Route::get('/gallery', [GalleryController::class, 'index']);
 
-Route::get('/gallery',[GalleryController::class,'index']);
-
-Route::get('gallery/{id}',[GalleryController::class,'show']);
+Route::get('gallery/{id}', [GalleryController::class, 'show']);
 

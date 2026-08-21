@@ -57,12 +57,21 @@
                             {{ asset('storage/' . $gallery->image) }}
                         </p> --}}
 
-                        @if ($gallery->image && Storage::disk('public')->exists($gallery->image))
+                        @if ($gallery->image)
                             <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{ $gallery->title }}"
-                                style="max-width: 100%;">
+                                class="img-fluid"
+                                style="
+            max-width: 100%;
+            max-height: 650px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 12px;
+        ">
                         @else
-                            <div class="alert alert-danger">
-                                Image file does not exist in the public storage disk.
+                            <div class="text-center text-muted py-5">
+                                <i class="bi bi-image fs-1 d-block mb-2"></i>
+                                <p class="mb-0">No image available.</p>
                             </div>
                         @endif
                     </div>
