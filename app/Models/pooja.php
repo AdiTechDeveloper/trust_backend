@@ -36,4 +36,12 @@ class pooja extends Model
         'price' => 'decimal:2',
         'offer_price' => 'decimal:2'
     ];
+
+    protected $table = 'poojas';
+
+    public function bookings()
+    {
+        return $this->hasMany(PoojaBooking::class, 'puja_id');
+    }
 }
+
