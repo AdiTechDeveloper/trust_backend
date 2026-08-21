@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePoojaRequest;
-use App\Models\Pooja;
+use App\Models\pooja;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -12,7 +12,7 @@ class PoojaController extends Controller
 {
     public function index()
     {
-        $pooja = Pooja::orderBy('sort_order', 'asc')
+        $pooja = pooja::orderBy('sort_order', 'asc')
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -31,7 +31,7 @@ class PoojaController extends Controller
 
     public function edit($id)
     {
-        $pooja = Pooja::findOrFail($id);
+        $pooja = pooja::findOrFail($id);
 
         return view('admin.pooja.form', compact('pooja'));
     }
@@ -116,7 +116,7 @@ class PoojaController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        Pooja::create($data);
+        pooja::create($data);
 
         return redirect()
             ->route('admin.pooja.index')
@@ -134,7 +134,7 @@ class PoojaController extends Controller
      */
     public function show($id)
     {
-        $pooja = Pooja::findOrFail($id);
+        $pooja = pooja::findOrFail($id);
 
         return view('admin.pooja.show', compact('pooja'));
     }
@@ -144,7 +144,7 @@ class PoojaController extends Controller
      */
     public function update(StorePoojaRequest $request, $id)
     {
-        $pooja = Pooja::findOrFail($id);
+        $pooja = pooja::findOrFail($id);
 
         $data = $request->validated();
 
@@ -229,7 +229,7 @@ class PoojaController extends Controller
      */
     public function destroy($id)
     {
-        $pooja = Pooja::findOrFail($id);
+        $pooja = pooja::findOrFail($id);
 
         // Delete main photo
         if ($pooja->photo) {
@@ -254,7 +254,7 @@ class PoojaController extends Controller
 
     public function publicIndex()
     {
-        $poojas = Pooja::where('status', true)
+        $poojas = pooja::where('status', true)
             ->orderBy('sort_order', 'asc')
             ->orderBy('created_at', 'desc')
             ->get();

@@ -46,6 +46,15 @@ body {
     transition: transform .3s ease;
     z-index: 1030;
 }
+.logo_image{
+    background-color: white;
+}
+
+.logo_image img{
+    width: 220px;
+    /* background-color: white; */
+    padding: 20px;
+}
 
 .sidebar-logo {
     display: flex;

@@ -1,9 +1,9 @@
 <aside class="sidebar" id="sidebar">
 
     {{-- Logo Section --}}
-    <div class="sidebar-logo">
+    <div class="logo_image">
         <img src="{{ asset('assets/admin/images/logo.png') }}" alt="Temple Trust" onerror="this.style.display='none'">
-        <span class="logo-text">Temple Trust</span>
+        {{-- <span class="logo-text">Temple Trust</span> --}}
     </div>
 
     <div class="sidebar-menu">
@@ -16,8 +16,6 @@
                 </a>
             </li>
 
-          
-
             <li class="nav-item">
                 <a href="{{ route('admin.users.index') }}" class="nav-link">
                     <i class="bi bi-people"></i> <span>Member</span>
@@ -26,15 +24,28 @@
 
              <li class="nav-item">
                 <a href="{{ route('admin.pooja.index') }}" class="nav-link">
-                    <i class="bi bi-people"></i> <span>Pooja</span>
+                    <i class="bi bi-flower1"></i> <span>Pooja</span>
                 </a>
             </li>
 
               <li class="nav-item">
                 <a href="{{ route('admin.video.index') }}" class="nav-link">
-                    <i class="bi bi-people"></i> <span>Video</span>
+                    <i class="bi bi-camera-video"></i> <span>Video</span>
                 </a>
             </li>
+
+             <li class="nav-item">
+                <a href="{{ route('admin.puja-booking.index') }}" class="nav-link">
+                    <i class="bi bi-calendar-check"></i> <span>Puja Bookings</span>
+                </a>
+            </li>
+
+                <li class="nav-item">
+                <a href="{{ route('admin.gallery.index') }}" class="nav-link">
+                    <i class="bi bi-images"></i> <span>Gallery</span>
+                </a>
+            </li>
+
 
             {{-- <li class="nav-item">
                 <a href="#" class="nav-link">

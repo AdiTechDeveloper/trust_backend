@@ -7,10 +7,10 @@
         </button>
 
         {{-- Search Box --}}
-        <div class="topbar-search d-none d-md-block">
+        {{-- <div class="topbar-search d-none d-md-block">
             <i class="bi bi-search"></i>
             <input type="text" placeholder="Search anything...">
-        </div>
+        </div> --}}
     </div>
 
     <div class="topbar-right">
@@ -36,15 +36,29 @@
 
         {{-- Admin Profile Dropdown --}}
         <div class="dropdown">
-            <button class="profile-btn" data-bs-toggle="dropdown">
+            <!-- Inside your topbar/navbar section -->
+            <button class="profile-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                @if (auth()->check() && auth()->user()->profile_photo)
+                    <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}"
+                        class="profile-img rounded-circle" alt="Profile" width="35" height="35"
+                        style="object-fit: cover;">
+                @else
+                    <img src="https://ui-avatars.com/api/?name={{ auth()->check() ? urlencode(auth()->user()->name) : 'Admin' }}&background=D4A017&color=fff"
+                        class="profile-img rounded-circle" alt="Profile" width="35" height="35">
+                @endif
+                <span class="d-none d-md-inline ms-1">{{ auth()->check() ? auth()->user()->name : 'Admin' }}</span>
+            </button>
+
+            {{-- <button class="profile-btn" data-bs-toggle="dropdown">
                 <img src="https://ui-avatars.com/api/?name={{ auth()->check() ? auth()->user()->name : 'Admin' }}&background=D4A017&color=fff"
                     class="profile-img" alt="Profile">
                 <span class="d-none d-md-inline">{{ auth()->check() ? auth()->user()->name : 'Admin' }}</span>
                 <i class="bi bi-chevron-down"></i>
-            </button>
+            </button> --}}
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
-                <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                <li><a class="dropdown-item" href="{{ url('admin/profile/edit') }}"><i
+                            class="bi bi-person me-2"></i>Profile</a></li>
+                <li><a class="dropdown-item" href="{{ url('admin/password/edit') }}"><i class="bi bi-key me-2"></i>Change Password</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>

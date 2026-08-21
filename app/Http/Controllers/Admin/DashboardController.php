@@ -1,15 +1,50 @@
 <?php
 
+// namespace App\Http\Controllers\Admin;
+
+// use App\Http\Controllers\Controller;
+// use Illuminate\Http\Request;
+
+// class DashboardController extends Controller
+// {
+//     //
+//      public function index()
+//     {
+//         return view('admin.dashboard');
+//     }
+// }
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Pooja; // Change model name based on your project
+use App\Models\PujaBooking; // Change model name based on your project
+use App\Models\Video; // Change model name based on your project
+use App\Models\Gallery; // Change model name based on your project
 
 class DashboardController extends Controller
 {
-    //
-     public function index()
+    public function index()
     {
-        return view('admin.dashboard');
+        $totalMembers = User::where('role','user')->count();
+        $totalPoojas = Pooja::count();
+        $totalBookings = PujaBooking::count();
+        // $pendingBookings = PujaBooking::where('status', 'pending')->count();
+        $totalVideos = Video::count();
+        $totalGallery = Gallery::count();
+        
+        // Fetch recent bookings for the table
+        $recentBookings = PujaBooking::with('user', 'pooja')->latest()->take(5)->get();
+
+        return view('admin.dashboard', compact(
+            'totalMembers', 
+            'totalPoojas', 
+            'totalBookings', 
+            'totalGallery',
+            // 'pendingBookings', 
+            'totalVideos', 
+            'recentBookings'
+
+        ));
     }
 }
