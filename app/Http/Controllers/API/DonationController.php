@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Donation;
 use App\Models\User;
+use App\Services\ReceiptService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,10 @@ use Razorpay\Api\Api;
 
 class DonationController extends Controller
 {
+    public function __construct(
+        private ReceiptService $receiptService
+    ) {}
+
     private function getRazorpayApi(): Api
     {
         $key = config('services.razorpay.key') ?? env('RAZORPAY_KEY');
@@ -76,8 +81,9 @@ class DonationController extends Controller
             'amount' => 'required|numeric|min:1',
             'category_id' => 'nullable|string',
             'phone' => 'required|string',
-            'email' => 'required|email',
-            'name' => 'nullable|string',
+            'email' => 'nullable|email',
+            'name' => 'required|string',
+            'dob' => 'required|date',
             'pan' => 'nullable|string',
             'anonymous' => 'boolean',
             'recurring' => 'boolean',
@@ -107,21 +113,24 @@ class DonationController extends Controller
         DB::beginTransaction();
 
         try {
-            // Find existing user by mobile/phone, or create a new user
-            $user = User::firstOrCreate(
-                ['mobile' => $request->phone],
-                [
-                    'name' => $request->anonymous ? 'Anonymous' : ($request->name ?? 'Donor'),
+            $user = User::where('email', $request->email)
+                ->orWhere('mobile', $request->phone)
+                ->first();
+
+            if (! $user) {
+                $user = User::create([
                     'email' => $request->email,
+                    'mobile' => $request->phone,
+                    'name' => $request->name ?? 'Donor',
+                    'dob' => $request->dob,
                     'source_type' => 'donation',
                     'is_donor' => 1,
                     'password' => Hash::make(Str::random(10)),
-                ]
-            );
-
-            // Ensure is_donor flag is set
-            if (! $user->is_donor) {
-                $user->update(['is_donor' => 1]);
+                ]);
+            } else {
+                if (! $user->is_donor) {
+                    $user->update(['is_donor' => 1]);
+                }
             }
 
             // Create Donation Record
@@ -139,6 +148,12 @@ class DonationController extends Controller
             ]);
 
             DB::commit();
+
+            try {
+                $this->receiptService->generate($donation);
+            } catch (Exception $e) {
+                Log::error('Receipt Generation Failed for Donation #'.$donation->id.': '.$e->getMessage());
+            }
 
             return response()->json([
                 'status' => true,

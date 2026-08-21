@@ -4,8 +4,8 @@ use App\Http\Controllers\Admin\CommunityController;
 use App\Http\Controllers\Admin\MembershipController;
 use App\Http\Controllers\Admin\PoojaController;
 use App\Http\Controllers\API\DonationController;
-use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\API\GalleryController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\API\PujaBookingController;
 use App\Http\Controllers\API\VideoController;
 use App\Http\Controllers\Auth\LoginController;
@@ -67,4 +67,3 @@ Route::get('/videos/{slug}', [VideoController::class, 'show']);
 Route::get('/gallery', [GalleryController::class, 'index']);
 
 Route::get('gallery/{id}', [GalleryController::class, 'show']);
-
