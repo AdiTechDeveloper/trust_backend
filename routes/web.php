@@ -11,16 +11,16 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VideoController;
 use Illuminate\Support\Facades\Route;
 
+// LOGIN (guest only)
+Route::middleware('guest')->group(function () {
+    Route::get('/', [AuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AuthController::class, 'login'])->name('admin.login.submit');
+});
+
 // ADMIN PANEL
 Route::prefix('admin')
     ->name('admin.')
     ->group(function () {
-
-        // LOGIN (guest only)
-        Route::middleware('guest')->group(function () {
-            Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
-            Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-        });
 
         // PROTECTED ADMIN ROUTES
         Route::middleware('admin')->group(function () {

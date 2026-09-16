@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('community_family_members', function (Blueprint $table) {
-            $table->dropForeign('community_family_members_community_member_id_foreign');
-
+            // Foreign key doesn't exist in DB, so we only create the new one
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
@@ -28,11 +27,6 @@ return new class extends Migration
     {
         Schema::table('community_family_members', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
-
-            $table->foreign('user_id', 'community_family_members_community_member_id_foreign')
-                ->references('id')
-                ->on('community_members')
-                ->onDelete('cascade');
         });
     }
 };
