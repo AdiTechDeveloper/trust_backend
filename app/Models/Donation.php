@@ -11,6 +11,11 @@ class Donation extends Model
     use HasFactory;
 
     protected $fillable = [
+        'receipt_number',
+        'receipt_path',
+        'receipt_generated_at',
+        'whatsapp_sent_at',
+        'whatsapp_status',
         'user_id',
         'category_id',
         'amount',

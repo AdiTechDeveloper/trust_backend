@@ -15,13 +15,13 @@ class AdminSeeder extends Seeder
                 'email' => 'admin@rudreshwartrust.com',
             ],
             [
-                'name' => 'Trust Admin',
+                'name' => 'Shree Rudreshwar Mahadev Temple',
                 'mobile' => '9999999999',
                 'gender' => 'Male',
                 'marital_status' => 'Single',
                 'status' => true,
                 'role' => 'admin',
-                'password' => Hash::make('Admin@12345'),
+                'password' => Hash::make('Admin@1234'),
             ]
         );
     }
